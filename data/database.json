@@ -1,0 +1,62 @@
+{
+    "users": [
+        {
+            "username": "Matheus",
+            "password": "1234",
+            "attempts": 3,
+            "blocked": false,
+            "created_at": "2026-04-10 20:20:49"
+        },
+        {
+            "username": "Josiane",
+            "password": "1234",
+            "attempts": 0,
+            "blocked": false,
+            "created_at": "2026-04-10 20:21:00"
+        }
+    ],
+    "logs": [
+        {
+            "user": "Matheus",
+            "action": "REGISTER",
+            "status": "SUCCESS",
+            "timestamp": "2026-04-10 20:20:49"
+        },
+        {
+            "user": "Josiane",
+            "action": "REGISTER",
+            "status": "SUCCESS",
+            "timestamp": "2026-04-10 20:21:00"
+        },
+        {
+            "user": "Matheus",
+            "action": "LOGIN",
+            "status": "SUCCESS",
+            "timestamp": "2026-04-10 20:21:11"
+        },
+        {
+            "user": "Matheus",
+            "action": "LOGIN",
+            "status": "FAIL",
+            "timestamp": "2026-04-10 20:21:17"
+        },
+        {
+            "user": "Matheus",
+            "action": "LOGIN",
+            "status": "FAIL",
+            "timestamp": "2026-04-10 20:22:56"
+        },
+        {
+            "user": "Matheus",
+            "action": "LOGIN",
+            "status": "FAIL",
+            "timestamp": "2026-04-10 20:23:09"
+        },
+        {
+            "user": "Matheus",
+            "action": "UNBLOCK",
+            "status": "SUCCESS",
+            "timestamp": "2026-04-10 20:23:32"
+        }
+    ]
+}
