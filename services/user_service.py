@@ -1,6 +1,7 @@
 from services.log_service import add_log
 from datetime import datetime
 from utils.json_handler import save_data
+from services.security import hash_password
 
 
 def get_user_by_username(data,username):
@@ -20,20 +21,21 @@ def register_user(data):
     if user:
         print ('Nome de usuário já cadastrado\n')
         return
-
-    while user['attempts'] < 3:
-        password = input('Digite sua senha: ')
+    attempts = 0
+    while attempts < 3:
+        password = input('Digite sua senha: ').strip()
         if password.strip() == '' or len(password) < 4:
             add_log(data, username, 'REGISTER', 'FAIL')
             print ('Senha inválida, a senha deve ser maior que 4 caracteres.\n')
-            user['attempts'] += 1
-            if user['attempts'] == 3:
+            attempts += 1
+            if attempts == 3:
                 print('Tente novamente mais tarde.\n')
                 return
             continue
+        password_hash = hash_password(password)
         user = {
             'username':username,
-            'password':password,
+            'password':password_hash,
             'attempts': 0,
             'blocked': False,
             'created_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -68,6 +70,7 @@ def unblock_user(data):
         return
 
     user['blocked'] = False
+    user['attempts'] = 0
     add_log(data,username,'UNBLOCK','SUCCESS')
     save_data(data)
     print (f'Usuário {username} desbloqueado com sucesso.\n')

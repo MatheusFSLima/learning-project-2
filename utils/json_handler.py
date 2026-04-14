@@ -12,6 +12,8 @@ def load_data():
         data['users'] = []
     if 'logs' not in data:
         data['logs'] = []
+    if 'session' not in data:
+        data['session'] = {'current_user': None}
     return data
 
 def save_data(data):
