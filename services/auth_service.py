@@ -2,6 +2,7 @@ from services.user_service import get_user_by_username
 from services.log_service import add_log
 from utils.json_handler import save_data
 from services.security import hash_password
+from ui.ui import get_current_user,get_current_username
 
 
 def login(data):
@@ -18,7 +19,7 @@ def login(data):
         print ('Nome de usuário inválido. \n')
         return
 
-    user = get_user_by_username(data, username)
+    user = get_user_by_username(data,username)
 
     if user is None:
         print ('Usuário não cadastrado.\n')
@@ -41,20 +42,22 @@ def login(data):
             save_data(data)
 
 def logout(data):
-    if not data['session']['current_user']:
+    current_user = get_current_user(data)
+    current_username = get_current_username(data)
+    if not current_user:
         print ('Faça login primeiro.\n')
         return
-    current_user = data['session']['current_user']
+
     option = input ('Tem certeza que deseja sair? [S/N]').strip().lower()
     if option == 's':
+        add_log(data, current_username, 'LOGOUT', 'SUCCESS')
         data['session']['current_user'] = None
-        add_log(data,current_user['username'],'LOGOUT','SUCCESS')
         save_data(data)
         print ('Logout realizado com sucesso.\n')
         return
     else:
-        print ('Usuário não deslogado.\n')
-        add_log(data,current_user['username'],'LOGIN','FAIL')
+        print ('Usuário continua logado.\n')
+        add_log(data,current_username,'LOGOUT','FAIL')
         save_data(data)
         return
 

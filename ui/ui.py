@@ -5,6 +5,13 @@ def get_current_user(data):
         user = data['session']['current_user']
         return user
 
+def get_current_username(data):
+    if not data['session']['current_user']:
+        return None
+    else:
+        user = data['session']['current_user']
+        return user.get('username')
+
 def render_user_menu():
     print ('=== MENU DE USUÁRIO ===')
     print ('1 - Listar usuários')
@@ -23,8 +30,10 @@ def render_main_menu():
 
 
 def render_header(data):
-    user = 'Sem usuários logados' if not get_current_user(data) else data['session']['current_user']['username']
-    status = 'Logado' if get_current_user(data) else 'Deslogado'
+    current_user = get_current_user(data)
+    current_username = get_current_username(data)
+    user = 'Sem usuários logados' if not current_user else current_username
+    status = 'Logado' if current_user else 'Deslogado'
     print ('===============')
     print ('PAINEL DE CONTROLE')
     print (f'Usuário:   {user}')
