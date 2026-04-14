@@ -2,7 +2,7 @@ from services.user_service import get_user_by_username
 from services.log_service import add_log
 from utils.json_handler import save_data
 from services.security import hash_password
-from ui.ui import render_logged_user
+
 
 def login(data):
     if not data['users']:

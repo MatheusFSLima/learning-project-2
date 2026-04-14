@@ -22,9 +22,9 @@ def render_main_menu():
 
 
 
-def render_header(current_user):
-    user = current_user['username'] if current_user else 'Nenhum usuário logado'
-    status = 'Logado' if current_user else 'Deslogado'
+def render_header(data):
+    user = 'Sem usuários logados' if not get_current_user(data) else data['session']['current_user']['username']
+    status = 'Logado' if get_current_user(data) else 'Deslogado'
     print ('===============')
     print ('PAINEL DE CONTROLE')
     print (f'Usuário:   {user}')
