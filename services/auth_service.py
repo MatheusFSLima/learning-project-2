@@ -2,66 +2,50 @@ from services.user_service import get_user_by_username
 from services.log_service import add_log
 from utils.json_handler import save_data
 from services.security import hash_password
-from ui.ui import get_current_user,get_current_username
+from utils.session import (get_current_user,
+                           set_current_user,
+                           clear_session
+                            )
 
 
-def login(data):
+def login(data,username,password):
     if not data['users']:
-        print('Lista de usuários vazia.\n')
-        return
-    if data['session']['current_user']:
-        print ('Login já realizado.\n')
-        return
+        return 'EMPTY_LIST'
 
-    username = input ('Digite seu nome de usuário: ').strip().title()
+    if get_current_user(data):
+        return 'ALREADY_LOGGED'
 
     if not username.replace(' ','').isalpha():
-        print ('Nome de usuário inválido. \n')
-        return
+        return 'INVALID_USERNAME'
 
     user = get_user_by_username(data,username)
 
     if user is None:
-        print ('Usuário não cadastrado.\n')
-        return
+        return 'USER_NOT_FOUND'
     if user['blocked']:
-        print ('Usuário bloqueado.\n')
-        return
+        return 'BLOCKED'
 
-    while user['attempts'] < 3:
-        password = input ('Digite sua senha: ').strip()
-        if validate_password(user,password):
-            print ('Login realizado com sucesso.\n')
-            reset_attempts(user)
-            data['session']['current_user'] = user
-            add_log(data,username,'LOGIN','SUCCESS')
-            save_data(data)
-            return
-        else:
-            handle_failed_attempt(data,user,username)
-            save_data(data)
+    if validate_password(user,password):
+        reset_attempts(user)
+        set_current_user(data,user)
+        add_log(data,user['username'],'LOGIN','SUCCESS')
+        save_data(data)
+        return 'SUCCESS'
+    else:
+        handle_failed_attempt(data,user,username)
+        save_data(data)
+        return 'INVALID_PASSWORD'
+
 
 def logout(data):
     current_user = get_current_user(data)
-    current_username = get_current_username(data)
     if not current_user:
-        print ('Faça login primeiro.\n')
-        return
+        return 'NO_USER_LOGGED'
 
-    option = input ('Tem certeza que deseja sair? [S/N]').strip().lower()
-    if option == 's':
-        add_log(data, current_username, 'LOGOUT', 'SUCCESS')
-        data['session']['current_user'] = None
-        save_data(data)
-        print ('Logout realizado com sucesso.\n')
-        return
-    else:
-        print ('Usuário continua logado.\n')
-        add_log(data,current_username,'LOGOUT','FAIL')
-        save_data(data)
-        return
-
-
+    add_log(data, current_user['username'], 'LOGOUT', 'SUCCESS')
+    clear_session(data)
+    save_data(data)
+    return 'SUCCESS'
 
 
 def validate_password(user,password):
@@ -70,7 +54,7 @@ def validate_password(user,password):
 
 def handle_failed_attempt(data,user,username):
         user['attempts'] += 1
-        add_log(data, username, 'LOGIN', 'FAIL')
+        add_log(data, user['username'], 'LOGIN', 'FAIL')
         print (f'Senha inválida. Tentativa {user["attempts"]} de 3.')
         if user['attempts'] >= 3:
             user['blocked'] = True

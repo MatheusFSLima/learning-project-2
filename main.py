@@ -7,7 +7,13 @@ from services.user_service import (
     remove_user
 )
 from services.auth_service import login,logout
-from ui.ui import render_user_menu,render_header,render_main_menu,get_current_user
+from ui.ui import (render_user_menu,
+                   render_header,
+                   render_main_menu,
+                   get_current_user,
+                   login_ui,
+                   logout_ui
+                   )
 
 
 
@@ -28,7 +34,7 @@ def main():
             elif option == '3':
                 remove_user(data)
             elif option == '4':
-                logout(data)
+                logout_ui(data)
             elif option == '0':
                 break
             else:
@@ -40,7 +46,7 @@ def main():
             if option == '1':
                 register_user(data)
             elif option == '2':
-                login(data)
+                login_ui(data)
             elif option == '0':
                 break
             else:
