@@ -12,7 +12,11 @@ from ui.ui import (render_user_menu,
                    render_main_menu,
                    get_current_user,
                    login_ui,
-                   logout_ui
+                   logout_ui,
+                   register_user_ui,
+                   list_users_ui,
+                   unblock_user_ui,
+                   remove_user_ui
                    )
 
 
@@ -28,11 +32,11 @@ def main():
             option = input('Digite a opção desejada: ').strip()
 
             if option == '1':
-                list_users(data)
+                list_users_ui(data)
             elif option == '2':
-                unblock_user(data)
+                unblock_user_ui(data)
             elif option == '3':
-                remove_user(data)
+                remove_user_ui(data)
             elif option == '4':
                 logout_ui(data)
             elif option == '0':
@@ -44,7 +48,7 @@ def main():
             render_main_menu()
             option = input('Digite a opção desejada: ').strip()
             if option == '1':
-                register_user(data)
+                register_user_ui(data)
             elif option == '2':
                 login_ui(data)
             elif option == '0':

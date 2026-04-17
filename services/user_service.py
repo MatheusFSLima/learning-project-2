@@ -2,6 +2,10 @@ from services.log_service import add_log
 from datetime import datetime
 from utils.json_handler import save_data
 from services.security import hash_password
+from utils.session import (set_current_user,
+                           clear_session,
+                           get_current_user
+                           )
 
 
 def get_user_by_username(data,username):
@@ -12,90 +16,70 @@ def get_user_by_username(data,username):
 
 
 
-def register_user(data):
-    username = input('Digite o nome de usuário: ').strip().title()
-    if not username.replace(' ', '').isalpha() or len(username) < 4:
-        print('Nome inválido, o nome deve conter somente letras e ser maior que 3 caracteres.\n')
-        return
-    user = get_user_by_username(data,username)
-    if user:
-        print ('Nome de usuário já cadastrado\n')
-        return
-    attempts = 0
-    while attempts < 3:
-        password = input('Digite sua senha: ').strip()
-        if password.strip() == '' or len(password) < 4:
-            add_log(data, username, 'REGISTER', 'FAIL')
-            print ('Senha inválida, a senha deve ser maior que 4 caracteres.\n')
-            attempts += 1
-            if attempts == 3:
-                print('Tente novamente mais tarde.\n')
-                return
-            continue
-        password_hash = hash_password(password)
-        user = {
-            'username':username,
-            'password':password_hash,
-            'attempts': 0,
-            'blocked': False,
-            'created_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        }
-        data['users'].append(user)
-        add_log(data,username,'REGISTER','SUCCESS')
-        save_data(data)
-        print ('Usuário cadastrado com sucesso.\n')
-        break
+def register_user(data,username,password):
+
+    if password.strip() == '' or len(password) < 4:
+        add_log(data, username, 'REGISTER', 'FAIL')
+        return 'INVALID_PASSWORD'
+
+    password_hash = hash_password(password)
+    user = {
+        'username':username,
+        'password':password_hash,
+        'attempts': 0,
+        'blocked': False,
+        'created_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    }
+    data['users'].append(user)
+    add_log(data,username,'REGISTER','SUCCESS')
+    save_data(data)
+    return 'SUCCESS'
 
 
 def list_users(data):
     if not data['users']:
-        print ('Lista de usuários vazia.\n')
-        return
-    for i,user in enumerate(data['users'],start=1):
-        status = 'ATIVO' if not user['blocked'] else 'BLOQUEADO'
-        print (f"{i} - Usuário: {user['username']} | Status: {status}\n")
+        return 'EMPTY_LIST'
+    return 'USER_LIST'
 
 
-def unblock_user(data):
+
+
+
+def unblock_user(data,username):
     if not data['users']:
-        print ('Lista de usuários vazia.\n')
-        return
-    username = input('Digite o nome de usuário: ').strip().title()
+        return 'EMPTY_LIST'
+
     user = get_user_by_username(data, username)
+
     if user is None:
-        print ('Usuário não cadastrado.\n')
-        return
+        return 'USER_NOT_FOUND'
+
     if not user['blocked']:
-        print ('Usuário não bloqueado.\n')
-        return
+        return 'USER_NOT_BLOCKED'
 
     user['blocked'] = False
     user['attempts'] = 0
     add_log(data,username,'UNBLOCK','SUCCESS')
     save_data(data)
-    print (f'Usuário {username} desbloqueado com sucesso.\n')
+    return 'SUCCESS'
 
 
-def remove_user(data):
+def remove_user(data,username):
     if not data['users']:
-        print('Lista de usuários vazia.\n')
-        return
-    username = input('Digite o nome de usuário: ').strip().title()
-    user = get_user_by_username(data,username)
-    if user is None:
-        print ('Usuário não cadastrado.\n')
-        return
-    option = input (f"Tem certeza que deseja excluir PERMANENTEMENTE o usuário {user['username']}? (S/N)\n").lower()
-    if option == 'n':
-        return
-    if option == 's':
-        data['users'].remove(user)
-        add_log(data,username,'REMOVE','SUCCESS')
-        save_data(data)
-        print ('Usuário excluido com sucesso.\n')
+        return 'EMPTY_LIST'
 
-    else:
-        print ('Opção inválida.\n')
+    user = get_user_by_username(data, username)
+
+    if user is None:
+        return 'USER_NOT_FOUND'
+
+    data['users'].remove(user)
+    add_log(data,username,'REMOVE','SUCCESS')
+    if get_current_user(data):
+        clear_session(data)
+    save_data(data)
+
+    return 'SUCCESS'
 
 
 

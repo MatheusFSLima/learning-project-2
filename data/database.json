@@ -1,593 +1,86 @@
 {
-    "users": [
-        {
-            "username": "Matheus",
-            "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
-            "attempts": 0,
-            "blocked": false,
-            "created_at": "2026-04-13 19:39:49"
-        },
-        {
-            "username": "Josiane",
-            "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
-            "attempts": 0,
-            "blocked": false,
-            "created_at": "2026-04-13 19:53:51"
-        }
-    ],
+    "users": [],
     "logs": [
         {
             "user": "Matheus",
             "action": "REGISTER",
-            "status": "FAIL",
-            "timestamp": "2026-04-13 19:39:43"
+            "status": "SUCCESS",
+            "timestamp": "2026-04-16 21:30:01"
         },
         {
             "user": "Matheus",
+            "action": "LOGIN",
+            "status": "FAIL",
+            "timestamp": "2026-04-16 21:37:01"
+        },
+        {
+            "user": "Matheus",
+            "action": "LOGIN",
+            "status": "FAIL",
+            "timestamp": "2026-04-16 21:37:02"
+        },
+        {
+            "user": "Matheus",
+            "action": "LOGIN",
+            "status": "SUCCESS",
+            "timestamp": "2026-04-16 22:08:02"
+        },
+        {
+            "user": "Matheus",
+            "action": "REMOVE",
+            "status": "SUCCESS",
+            "timestamp": "2026-04-16 22:09:00"
+        },
+        {
+            "user": "Matheus",
+            "action": "LOGOUT",
+            "status": "SUCCESS",
+            "timestamp": "2026-04-16 22:12:18"
+        },
+        {
+            "user": "Josiane",
             "action": "REGISTER",
             "status": "SUCCESS",
-            "timestamp": "2026-04-13 19:39:49"
+            "timestamp": "2026-04-16 22:12:22"
+        },
+        {
+            "user": "Josiane",
+            "action": "LOGIN",
+            "status": "SUCCESS",
+            "timestamp": "2026-04-16 22:12:27"
+        },
+        {
+            "user": "Josiane",
+            "action": "REMOVE",
+            "status": "SUCCESS",
+            "timestamp": "2026-04-16 22:12:34"
+        },
+        {
+            "user": "Josiane",
+            "action": "LOGOUT",
+            "status": "SUCCESS",
+            "timestamp": "2026-04-16 22:13:39"
         },
         {
             "user": "Josiane",
             "action": "REGISTER",
             "status": "SUCCESS",
-            "timestamp": "2026-04-13 19:53:51"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGIN",
-            "status": "FAIL",
-            "timestamp": "2026-04-13 19:54:55"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGIN",
-            "status": "FAIL",
-            "timestamp": "2026-04-13 19:54:55"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGIN",
-            "status": "FAIL",
-            "timestamp": "2026-04-13 19:55:04"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGIN",
-            "status": "FAIL",
-            "timestamp": "2026-04-13 19:55:04"
-        },
-        {
-            "user": "Josiane",
-            "action": "LOGIN",
-            "status": "FAIL",
-            "timestamp": "2026-04-13 19:55:51"
-        },
-        {
-            "user": "Josiane",
-            "action": "LOGIN",
-            "status": "FAIL",
-            "timestamp": "2026-04-13 19:55:51"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGIN",
-            "status": "FAIL",
-            "timestamp": "2026-04-13 19:57:27"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGIN",
-            "status": "FAIL",
-            "timestamp": "2026-04-13 19:57:27"
-        },
-        {
-            "user": "Matheus",
-            "action": "UNBLOCK",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-13 19:57:44"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGIN",
-            "status": "FAIL",
-            "timestamp": "2026-04-13 19:57:51"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGIN",
-            "status": "FAIL",
-            "timestamp": "2026-04-13 19:57:51"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGIN",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-13 19:58:10"
-        },
-        {
-            "user": "Josiane",
-            "action": "LOGIN",
-            "status": "FAIL",
-            "timestamp": "2026-04-13 19:58:54"
-        },
-        {
-            "user": "Josiane",
-            "action": "LOGIN",
-            "status": "FAIL",
-            "timestamp": "2026-04-13 19:58:54"
+            "timestamp": "2026-04-16 22:13:44"
         },
         {
             "user": "Josiane",
             "action": "LOGIN",
             "status": "SUCCESS",
-            "timestamp": "2026-04-13 19:59:03"
+            "timestamp": "2026-04-16 22:13:47"
         },
         {
             "user": "Josiane",
-            "action": "LOGIN",
-            "status": "FAIL",
-            "timestamp": "2026-04-13 20:01:50"
-        },
-        {
-            "user": "Josiane",
-            "action": "LOGIN",
+            "action": "REMOVE",
             "status": "SUCCESS",
-            "timestamp": "2026-04-13 20:01:58"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGIN",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-13 20:02:01"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGIN",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-13 20:25:46"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGIN",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-13 20:26:13"
-        },
-        {
-            "user": {
-                "username": "Matheus",
-                "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
-                "attempts": 0,
-                "blocked": false,
-                "created_at": "2026-04-13 19:39:49"
-            },
-            "action": "LOGOUT",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-13 20:26:18"
-        },
-        {
-            "user": "Josiane",
-            "action": "LOGIN",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-13 20:27:35"
-        },
-        {
-            "user": {
-                "username": "Josiane",
-                "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
-                "attempts": 0,
-                "blocked": false,
-                "created_at": "2026-04-13 19:53:51"
-            },
-            "action": "LOGOUT",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-13 20:27:43"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGIN",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-13 20:29:04"
-        },
-        {
-            "user": {
-                "username": "Matheus",
-                "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
-                "attempts": 0,
-                "blocked": false,
-                "created_at": "2026-04-13 19:39:49"
-            },
-            "action": "LOGOUT",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-13 20:29:49"
-        },
-        {
-            "user": "Josiane",
-            "action": "LOGIN",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-13 20:29:56"
-        },
-        {
-            "user": {
-                "username": "Josiane",
-                "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
-                "attempts": 0,
-                "blocked": false,
-                "created_at": "2026-04-13 19:53:51"
-            },
-            "action": "LOGOUT",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-13 20:30:01"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGIN",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-13 20:31:50"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGOUT",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-13 20:32:11"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGIN",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-13 20:47:19"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGOUT",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-13 20:50:19"
-        },
-        {
-            "user": "Josiane",
-            "action": "LOGIN",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-13 20:50:24"
-        },
-        {
-            "user": "Josiane",
-            "action": "LOGOUT",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-13 20:56:04"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGIN",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-13 21:32:42"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGOUT",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-13 21:33:08"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGIN",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-13 21:34:09"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGOUT",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-13 21:34:19"
-        },
-        {
-            "user": "Josiane",
-            "action": "LOGIN",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-13 21:35:20"
-        },
-        {
-            "user": "Josiane",
-            "action": "LOGOUT",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-13 21:47:18"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGIN",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-13 21:51:35"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGOUT",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-13 21:51:44"
-        },
-        {
-            "user": "Josiane",
-            "action": "LOGIN",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-13 21:56:15"
-        },
-        {
-            "user": "Josiane",
-            "action": "LOGOUT",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-13 21:56:22"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGIN",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-13 22:03:43"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGOUT",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-13 22:04:14"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGIN",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-13 22:04:20"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGOUT",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-13 22:11:50"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGIN",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-13 22:14:43"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGOUT",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-13 22:14:49"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGIN",
-            "status": "FAIL",
-            "timestamp": "2026-04-13 22:37:17"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGIN",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-13 22:37:20"
-        },
-        {
-            "user": null,
-            "action": "LOGOUT",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-14 19:19:45"
-        },
-        {
-            "user": null,
-            "action": "LOGOUT",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-14 19:20:02"
-        },
-        {
-            "user": {
-                "username": "Matheus",
-                "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
-                "attempts": 0,
-                "blocked": false,
-                "created_at": "2026-04-13 19:39:49"
-            },
-            "action": "LOGOUT",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-14 19:20:56"
-        },
-        {
-            "user": "Josiane",
-            "action": "LOGIN",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-14 19:21:39"
-        },
-        {
-            "user": "Josiane",
-            "action": "LOGOUT",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-14 19:22:57"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGIN",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-14 19:24:45"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGOUT",
-            "status": "FAIL",
-            "timestamp": "2026-04-14 19:25:00"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGOUT",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-14 19:25:23"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGIN",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-14 19:27:31"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGOUT",
-            "status": "FAIL",
-            "timestamp": "2026-04-14 19:38:08"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGOUT",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-14 19:38:09"
-        },
-        {
-            "user": "Josiane",
-            "action": "LOGIN",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-14 19:38:15"
-        },
-        {
-            "user": "Josiane",
-            "action": "LOGOUT",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-15 19:33:34"
-        },
-        {
-            "user": "Josiane",
-            "action": "LOGIN",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-15 19:33:48"
-        },
-        {
-            "user": "Josiane",
-            "action": "LOGOUT",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-15 19:40:59"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGIN",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-15 19:41:05"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGOUT",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-15 19:50:15"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGIN",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-15 19:50:20"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGOUT",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-15 19:52:10"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGIN",
-            "status": "FAIL",
-            "timestamp": "2026-04-15 21:19:56"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGIN",
-            "status": "FAIL",
-            "timestamp": "2026-04-15 21:20:06"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGIN",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-15 21:20:12"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGOUT",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-15 21:25:28"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGIN",
-            "status": "FAIL",
-            "timestamp": "2026-04-15 21:25:32"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGIN",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-15 21:26:41"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGOUT",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-15 21:26:45"
-        },
-        {
-            "user": "Josiane",
-            "action": "LOGIN",
-            "status": "FAIL",
-            "timestamp": "2026-04-15 21:26:55"
-        },
-        {
-            "user": "Josiane",
-            "action": "LOGIN",
-            "status": "FAIL",
-            "timestamp": "2026-04-15 21:28:07"
-        },
-        {
-            "user": "Josiane",
-            "action": "LOGIN",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-15 21:28:11"
-        },
-        {
-            "user": "Josiane",
-            "action": "LOGOUT",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-15 21:28:13"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGIN",
-            "status": "FAIL",
-            "timestamp": "2026-04-15 21:28:18"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGIN",
-            "status": "FAIL",
-            "timestamp": "2026-04-15 21:28:19"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGIN",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-15 21:28:22"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGOUT",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-15 21:39:02"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGIN",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-15 21:39:12"
+            "timestamp": "2026-04-16 22:13:52"
         }
     ],
     "session": {
-        "current_user": {
-            "username": "Matheus",
-            "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
-            "attempts": 0,
-            "blocked": false,
-            "created_at": "2026-04-13 19:39:49"
-        }
+        "current_user": null
     }
 }

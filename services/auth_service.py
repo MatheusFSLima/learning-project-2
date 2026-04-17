@@ -22,6 +22,7 @@ def login(data,username,password):
 
     if user is None:
         return 'USER_NOT_FOUND'
+
     if user['blocked']:
         return 'BLOCKED'
 
@@ -32,7 +33,6 @@ def login(data,username,password):
         save_data(data)
         return 'SUCCESS'
     else:
-        handle_failed_attempt(data,user,username)
         save_data(data)
         return 'INVALID_PASSWORD'
 
@@ -52,14 +52,14 @@ def validate_password(user,password):
     password_hash = hash_password(password)
     return user['password'] == password_hash
 
-def handle_failed_attempt(data,user,username):
+def handle_failed_attempt(data,user):
         user['attempts'] += 1
         add_log(data, user['username'], 'LOGIN', 'FAIL')
-        print (f'Senha inválida. Tentativa {user["attempts"]} de 3.')
         if user['attempts'] >= 3:
             user['blocked'] = True
-            print ('Usuário bloqueado por tentativas')
-            return
+            return 'BLOCKED'
+        return 'WRONG_PASSWORD'
+
 
 def reset_attempts(user):
     user['attempts'] = 0
