@@ -20,42 +20,47 @@ from ui.ui import (render_user_menu,
                    )
 
 
-
 def main():
+
     data=load_data()
     while True:
+
         current_user = get_current_user(data)
         render_header(data)
 
         if current_user:
             render_user_menu()
-            option = input('Digite a opção desejada: ').strip()
 
-            if option == '1':
-                list_users_ui(data)
-            elif option == '2':
-                unblock_user_ui(data)
-            elif option == '3':
-                remove_user_ui(data)
-            elif option == '4':
-                logout_ui(data)
+            option = input('Digite a opção desejada: ').strip()
+            actions = {
+                '1': lambda: list_users_ui(data),
+                '2': lambda: unblock_user_ui(data),
+                '3': lambda: remove_user_ui(data),
+                '4': lambda: logout_ui(data),
+
+            }
+            action = actions.get(option)
+            if action:
+                action()
             elif option == '0':
                 break
             else:
-                print('Opção inválida.\n')
+                print ('Opção inválida.\n')
 
         else:
             render_main_menu()
             option = input('Digite a opção desejada: ').strip()
-            if option == '1':
-                register_user_ui(data)
-            elif option == '2':
-                login_ui(data)
+            actions = {
+                '1': lambda: register_user_ui(data),
+                '2': lambda: login_ui(data),
+            }
+            action = actions.get(option)
+            if action:
+                action()
             elif option == '0':
                 break
             else:
-                print('Opção inválida.\n')
-
+                print ('Opção inválida.\n')
 
 
 

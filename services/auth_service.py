@@ -9,32 +9,25 @@ from utils.session import (get_current_user,
 
 
 def login(data,username,password):
-    if not data['users']:
-        return 'EMPTY_LIST'
 
     if get_current_user(data):
-        return 'ALREADY_LOGGED'
+        return 'ALREADY_LOGGED', None
 
-    if not username.replace(' ','').isalpha():
-        return 'INVALID_USERNAME'
-
-    user = get_user_by_username(data,username)
-
-    if user is None:
-        return 'USER_NOT_FOUND'
-
-    if user['blocked']:
-        return 'BLOCKED'
+    user = get_user_by_username(data, username)
 
     if validate_password(user,password):
         reset_attempts(user)
         set_current_user(data,user)
         add_log(data,user['username'],'LOGIN','SUCCESS')
         save_data(data)
-        return 'SUCCESS'
+        return 'SUCCESS', None
+
     else:
+        result,attempts = handle_failed_attempt(user)
+        add_log(data, user['username'], 'LOGIN', 'FAIL')
         save_data(data)
-        return 'INVALID_PASSWORD'
+        return result, attempts
+
 
 
 def logout(data):
@@ -52,13 +45,12 @@ def validate_password(user,password):
     password_hash = hash_password(password)
     return user['password'] == password_hash
 
-def handle_failed_attempt(data,user):
+def handle_failed_attempt(user):
         user['attempts'] += 1
-        add_log(data, user['username'], 'LOGIN', 'FAIL')
         if user['attempts'] >= 3:
             user['blocked'] = True
-            return 'BLOCKED'
-        return 'WRONG_PASSWORD'
+            return 'BLOCKED',user['attempts']
+        return 'INVALID_PASSWORD',user['attempts']
 
 
 def reset_attempts(user):

@@ -1,83 +1,111 @@
 {
-    "users": [],
+    "users": [
+        {
+            "username": "matheus",
+            "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+            "attempts": 3,
+            "blocked": true,
+            "created_at": "2026-04-22 21:13:31"
+        },
+        {
+            "username": "josiane",
+            "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+            "attempts": 1,
+            "blocked": false,
+            "created_at": "2026-04-22 21:16:10"
+        },
+        {
+            "username": "carlos",
+            "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+            "attempts": 3,
+            "blocked": true,
+            "created_at": "2026-04-22 21:24:23"
+        }
+    ],
     "logs": [
         {
-            "user": "Matheus",
+            "user": "matheus",
             "action": "REGISTER",
             "status": "SUCCESS",
-            "timestamp": "2026-04-16 21:30:01"
+            "timestamp": "2026-04-22 21:13:31"
         },
         {
-            "user": "Matheus",
+            "user": "matheus",
             "action": "LOGIN",
             "status": "FAIL",
-            "timestamp": "2026-04-16 21:37:01"
+            "timestamp": "2026-04-22 21:13:37"
         },
         {
-            "user": "Matheus",
+            "user": "matheus",
             "action": "LOGIN",
             "status": "FAIL",
-            "timestamp": "2026-04-16 21:37:02"
+            "timestamp": "2026-04-22 21:13:48"
         },
         {
-            "user": "Matheus",
+            "user": "matheus",
             "action": "LOGIN",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-16 22:08:02"
+            "status": "FAIL",
+            "timestamp": "2026-04-22 21:13:53"
         },
         {
-            "user": "Matheus",
-            "action": "REMOVE",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-16 22:09:00"
-        },
-        {
-            "user": "Matheus",
-            "action": "LOGOUT",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-16 22:12:18"
-        },
-        {
-            "user": "Josiane",
+            "user": "josiane",
             "action": "REGISTER",
             "status": "SUCCESS",
-            "timestamp": "2026-04-16 22:12:22"
+            "timestamp": "2026-04-22 21:16:10"
         },
         {
-            "user": "Josiane",
+            "user": "josiane",
+            "action": "LOGIN",
+            "status": "FAIL",
+            "timestamp": "2026-04-22 21:16:13"
+        },
+        {
+            "user": "josiane",
+            "action": "LOGIN",
+            "status": "FAIL",
+            "timestamp": "2026-04-22 21:17:45"
+        },
+        {
+            "user": "josiane",
             "action": "LOGIN",
             "status": "SUCCESS",
-            "timestamp": "2026-04-16 22:12:27"
+            "timestamp": "2026-04-22 21:18:48"
         },
         {
-            "user": "Josiane",
-            "action": "REMOVE",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-16 22:12:34"
-        },
-        {
-            "user": "Josiane",
+            "user": "josiane",
             "action": "LOGOUT",
             "status": "SUCCESS",
-            "timestamp": "2026-04-16 22:13:39"
+            "timestamp": "2026-04-22 21:19:48"
         },
         {
-            "user": "Josiane",
+            "user": "josiane",
+            "action": "LOGIN",
+            "status": "FAIL",
+            "timestamp": "2026-04-22 21:19:53"
+        },
+        {
+            "user": "carlos",
             "action": "REGISTER",
             "status": "SUCCESS",
-            "timestamp": "2026-04-16 22:13:44"
+            "timestamp": "2026-04-22 21:24:23"
         },
         {
-            "user": "Josiane",
+            "user": "carlos",
             "action": "LOGIN",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-16 22:13:47"
+            "status": "FAIL",
+            "timestamp": "2026-04-22 21:24:26"
         },
         {
-            "user": "Josiane",
-            "action": "REMOVE",
-            "status": "SUCCESS",
-            "timestamp": "2026-04-16 22:13:52"
+            "user": "carlos",
+            "action": "LOGIN",
+            "status": "FAIL",
+            "timestamp": "2026-04-22 21:24:27"
+        },
+        {
+            "user": "carlos",
+            "action": "LOGIN",
+            "status": "FAIL",
+            "timestamp": "2026-04-22 21:24:28"
         }
     ],
     "session": {

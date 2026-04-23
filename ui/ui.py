@@ -43,36 +43,49 @@ def render_header(data):
     ###############################################################
 
 def login_ui(data):
-    username = input ('Digite seu nome de usuário: ').strip().title()
+
+    username = input('Digite seu nome de usuário: ').strip().lower()
+
+    if not data['users']:
+        print ('Lista de usuários vazia.\n')
+        return
+
+    if not username.replace(' ','').isalpha():
+        print ('Nome de usuário inválido. \n')
+        return
+
+    user = get_user_by_username(data, username)
+
+    if user is None:
+        print ('Usuário não cadastrado.\n')
+        return
+
+    elif user['blocked']:
+        print ('Usuário bloqueado.\n')
+        return
+
     while True:
-        password = input ('Digite sua senha: ').strip()
-        result = login(data, username, password)
-        user = get_user_by_username(data, username)
+        password = input('Digite sua senha: ').strip()
+        result, attempts = login(data, username, password)
 
-        if result == 'SUCCESS':
-            print ('Login realizado com sucesso.\n')
+        if result == 'ALREADY_LOGGED':
+            print('Login já realizado.\n')
             break
-        elif result == 'ALREADY_LOGGED':
-            print ('Login já realizado.\n')
+
+        elif result == 'SUCCESS':
+            print('Login realizado com sucesso.\n')
             break
-        elif result == 'INVALID_USERNAME':
-            print ('Nome de usuário inválido. \n')
-            break
-        elif result == 'USER_NOT_FOUND':
-            print ('Usuário não cadastrado.\n')
-            break
+
         elif result == 'BLOCKED':
-            print ('Usuário bloqueado.\n')
-            break
-        elif result == 'EMPTY_LIST':
-            print ('Lista de usuários vazia.\n')
+            print(f'Usuário bloqueado por excesso de tentativas.')
             break
 
-        if result == 'INVALID_PASSWORD':
-            handle_failed_attempt_ui(data,user)
-            if user['blocked']:
-                break
+        elif result == 'INVALID_PASSWORD':
+            print (f'Senha inválida. Tentativa {attempts} de 3.\n')
             continue
+
+
+
 
     ###############################################################
 
@@ -92,7 +105,7 @@ def logout_ui(data):
 
 def register_user_ui(data):
     while True:
-        username = input('Digite o nome de usuário: ').strip().title()
+        username = input('Digite o nome de usuário: ').strip().lower()
         if not username.replace(' ', '').isalpha() or len(username) < 4:
             print ('Nome inválido, o nome deve conter somente letras e ser maior que 3 caracteres.\n')
             return
@@ -135,7 +148,7 @@ def list_users_ui(data):
     ###############################################################
 
 def unblock_user_ui(data):
-    username = input('Digite o nome de usuário: ').strip().title()
+    username = input('Digite o nome de usuário: ').strip().lower()
     result = unblock_user(data,username)
     if result == 'EMPTY_LIST':
         print ('Lista de usuários vazia.\n')
@@ -168,7 +181,7 @@ def remove_user_ui(data):
         print('Lista de usuários vazia.\n')
         return
 
-    username = input('Digite o nome de usuário: ').strip().title()
+    username = input('Digite o nome de usuário: ').strip().lower()
     user = get_user_by_username(data, username)
 
     if user is None:
