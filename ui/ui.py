@@ -1,10 +1,11 @@
 from utils.session import get_current_user
 from services.auth_service import (login,
                                    logout,
-                                   handle_failed_attempt
+                                   validate_username_for_register,
+                                   validate_username_for_login,
+                                   validate_remove_user
                                    )
 from services.user_service import (register_user,
-                                   get_user_by_username,
                                    list_users,
                                    unblock_user,
                                    remove_user
@@ -45,34 +46,23 @@ def render_header(data):
 def login_ui(data):
 
     username = input('Digite seu nome de usuário: ').strip().lower()
-
-    if not data['users']:
-        print ('Lista de usuários vazia.\n')
+    result = validate_username_for_login(data,username)
+    action = {
+        'BLOCKED': lambda: print('Usuário bloqueado.\n'),
+        'INVALID_USERNAME': lambda: print ('Nome inválido, o nome deve conter somente letras e ser maior que 3 caracteres.\n'),
+        'EMPTY_LIST': lambda: print ('Lista de usuários vazia.\n'),
+        'USER_NOT_FOUND': lambda: print ('Usuário não cadastrado.\n'),
+    }
+    if result in action:
+        action[result]()
         return
 
-    if not username.replace(' ','').isalpha():
-        print ('Nome de usuário inválido. \n')
-        return
-
-    user = get_user_by_username(data, username)
-
-    if user is None:
-        print ('Usuário não cadastrado.\n')
-        return
-
-    elif user['blocked']:
-        print ('Usuário bloqueado.\n')
-        return
 
     while True:
         password = input('Digite sua senha: ').strip()
         result, attempts = login(data, username, password)
 
-        if result == 'ALREADY_LOGGED':
-            print('Login já realizado.\n')
-            break
-
-        elif result == 'SUCCESS':
+        if result == 'SUCCESS':
             print('Login realizado com sucesso.\n')
             break
 
@@ -96,42 +86,40 @@ def logout_ui(data):
         result = logout(data)
         if result == 'NO_USER_LOGGED':
             print ('Faça login primeiro.\n')
+            return
+
         elif result == 'SUCCESS':
             print ('Logout realizado com sucesso.\n')
+            return
     else:
         print ('Usuário continua logado.\n')
+        return
 
     ###############################################################
 
 def register_user_ui(data):
-    while True:
-        username = input('Digite o nome de usuário: ').strip().lower()
-        if not username.replace(' ', '').isalpha() or len(username) < 4:
-            print ('Nome inválido, o nome deve conter somente letras e ser maior que 3 caracteres.\n')
-            return
-        user = get_user_by_username(data, username)
-        if user:
-            print ('Nome de usuário já cadastrado\n')
-            return
-        break
-    attempts = 0
-    while True:
-        password = input('Digite sua senha: ').strip()
-        result = register_user(data, username, password)
 
-        if result == 'SUCCESS':
-            print ('Usuário cadastrado com sucesso.\n')
-            break
-        elif result == 'INVALID_PASSWORD':
-            print ('Senha inválida, a senha deve ser maior que 4 caracteres.\n')
-            attempts += 1
-            if attempts == 3:
-                print ('Tente novamente mais tarde.\n')
-                break
-            continue
-        elif result == 'TRY_AGAIN_LATER':
-            print ('Tente novamente mais tarde.\n')
-            break
+    username = input('Digite o nome de usuário: ').strip().lower()
+    result = validate_username_for_register(data,username)
+    actions = {
+        'USERNAME_ALREADY_EXISTS': lambda: print ('Nome de usuário já cadastrado\n'),
+        'INVALID_USERNAME': lambda: print ('Nome inválido, o nome deve conter somente letras e ser maior que 3 caracteres.\n'),
+    }
+    if result in actions:
+        actions[result]()
+        return
+
+    password = input('Digite sua senha: ').strip()
+    result = register_user(data, username, password)
+
+    actions = {
+        'SUCCESS': lambda: print ('Usuário cadastrado com sucesso.\n'),
+        'INVALID_PASSWORD': lambda: print ('Senha inválida, a senha deve ser maior que 4 caracteres.\n'),
+        'TRY_AGAIN_LATER': lambda: print ('Tente novamente mais tarde.\n'),
+
+    }
+    if result in actions:
+        actions[result]()
 
     ###############################################################
 
@@ -150,47 +138,34 @@ def list_users_ui(data):
 def unblock_user_ui(data):
     username = input('Digite o nome de usuário: ').strip().lower()
     result = unblock_user(data,username)
-    if result == 'EMPTY_LIST':
-        print ('Lista de usuários vazia.\n')
-        return
-    elif result == 'USER_NOT_FOUND':
-        print ('Usuário não cadastrado.\n')
-        return
-    elif result == 'USER_NOT_BLOCKED':
-        print ('Usuário não bloqueado.\n')
-        return
-    elif result == 'SUCCESS':
-        print (f'Usuário {username} desbloqueado com sucesso.\n')
 
-    ###############################################################
+    actions = {
+        'EMPTY_LIST': lambda: print ('Lista de usuários vazia.\n'),
+        'USER_NOT_FOUND': lambda: print ('Usuário não cadastrado.\n'),
+        'USER_NOT_BLOCKED': lambda: print ('Usuário não bloqueado.\n'),
+        'SUCCESS': lambda: print (f'Usuário {username} desbloqueado com sucesso.\n')
+    }
 
-def handle_failed_attempt_ui(data,user):
-    result = handle_failed_attempt(data,user)
-    if result == 'WRONG_PASSWORD':
-        print (f'Senha inválida. Tentativa {user["attempts"]} de 3.')
-        return
-    if result == 'BLOCKED':
-        print ('Usuário bloqueado por tentativas')
-        return
+    if result in actions:
+        actions[result]()
 
     ###############################################################
 
 def remove_user_ui(data):
 
-    if not data['users']:
-        print('Lista de usuários vazia.\n')
-        return
-
     username = input('Digite o nome de usuário: ').strip().lower()
-    user = get_user_by_username(data, username)
+    result = validate_remove_user(data,username)
+    actions = {
+        'EMPTY_LIST': lambda: print ('Lista de usuários vazia.\n'),
+        'USER_NOT_FOUND': lambda: print ('Usuário não cadastrado.\n')
+    }
 
-    if user is None:
-        print('Usuário não cadastrado.\n')
+    if result in actions:
+        actions[result]()
         return
 
-
-    option = input(f"Tem certeza que deseja excluir PERMANENTEMENTE o usuário {user['username']}? (S/N)\n").lower()
-    if option != 's':
+    option = input(f"Tem certeza que deseja excluir o usuário PERMANENTEMENTE? (S/N)\n").lower()
+    if option not in ['s','sim']:
         print ('Operação cancelada.\n')
         return
 
@@ -198,3 +173,4 @@ def remove_user_ui(data):
 
     if result == 'SUCCESS':
         print('Usuário excluido com sucesso.\n')
+        return

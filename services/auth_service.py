@@ -10,8 +10,6 @@ from utils.session import (get_current_user,
 
 def login(data,username,password):
 
-    if get_current_user(data):
-        return 'ALREADY_LOGGED', None
 
     user = get_user_by_username(data, username)
 
@@ -32,6 +30,7 @@ def login(data,username,password):
 
 def logout(data):
     current_user = get_current_user(data)
+
     if not current_user:
         return 'NO_USER_LOGGED'
 
@@ -55,6 +54,53 @@ def handle_failed_attempt(user):
 
 def reset_attempts(user):
     user['attempts'] = 0
+
+def validate_username_for_register(data,username):
+
+    if not username.replace(' ', '').isalpha() or len(username) < 4:
+        return 'INVALID_USERNAME'
+
+    user = get_user_by_username(data, username)
+
+    if user:
+        return 'USERNAME_ALREADY_EXISTS'
+
+    return 'OK'
+
+
+
+
+def validate_username_for_login(data,username):
+
+    if not username.replace(' ', '').isalpha() or len(username) < 4:
+        return 'INVALID_USERNAME'
+
+    if not data['users']:
+        return 'EMPTY_LIST'
+
+    user = get_user_by_username(data, username)
+
+    if user is None:
+        return 'USER_NOT_FOUND'
+
+    if user['blocked']:
+        return 'BLOCKED'
+
+    return 'OK'
+
+
+def validate_remove_user(data,username):
+
+    if not data['users']:
+        return 'EMPTY_LIST'
+
+    user = get_user_by_username(data, username)
+
+    if user is None:
+        return 'USER_NOT_FOUND'
+
+    return 'OK'
+
 
 
 

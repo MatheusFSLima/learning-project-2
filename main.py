@@ -1,12 +1,5 @@
 
-from utils.json_handler import load_data,clear_data
-from services.user_service import (
-    register_user,
-    list_users,
-    unblock_user,
-    remove_user
-)
-from services.auth_service import login,logout
+from utils.json_handler import load_data
 from ui.ui import (render_user_menu,
                    render_header,
                    render_main_menu,
