@@ -13,6 +13,9 @@ def login(data,username,password):
 
     user = get_user_by_username(data, username)
 
+    if not user:
+        return 'USER_NOT_FOUND'
+
     if validate_password(user,password):
         reset_attempts(user)
         set_current_user(data,user)
@@ -57,10 +60,10 @@ def reset_attempts(user):
 
 def validate_username_for_register(data,username):
 
+    user = get_user_by_username(data, username)
+
     if not username.replace(' ', '').isalpha() or len(username) < 4:
         return 'INVALID_USERNAME'
-
-    user = get_user_by_username(data, username)
 
     if user:
         return 'USERNAME_ALREADY_EXISTS'
@@ -91,6 +94,9 @@ def validate_username_for_login(data,username):
 
 def validate_remove_user(data,username):
 
+    if not username.replace(' ', '').isalpha() or len(username) < 4:
+        return 'INVALID_USERNAME'
+
     if not data['users']:
         return 'EMPTY_LIST'
 
@@ -102,8 +108,12 @@ def validate_remove_user(data,username):
     return 'OK'
 
 
+def normalize_username(username):
+    return username.strip().lower()
 
 
 
-
-
+def validate_password_for_register(password):
+    if password == '' or len(password) < 4:
+        return 'INVALID_PASSWORD'
+    return 'OK'

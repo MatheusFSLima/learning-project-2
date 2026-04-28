@@ -3,7 +3,9 @@ from services.auth_service import (login,
                                    logout,
                                    validate_username_for_register,
                                    validate_username_for_login,
-                                   validate_remove_user
+                                   validate_remove_user,
+                                   validate_password_for_register,
+                                   normalize_username,
                                    )
 from services.user_service import (register_user,
                                    list_users,
@@ -45,7 +47,8 @@ def render_header(data):
 
 def login_ui(data):
 
-    username = input('Digite seu nome de usuário: ').strip().lower()
+    username = input('Digite seu nome de usuário: ')
+    username = normalize_username(username)
     result = validate_username_for_login(data,username)
     action = {
         'BLOCKED': lambda: print('Usuário bloqueado.\n'),
@@ -99,22 +102,27 @@ def logout_ui(data):
 
 def register_user_ui(data):
 
-    username = input('Digite o nome de usuário: ').strip().lower()
+    username = input('Digite o nome de usuário: ')
+    username = normalize_username(username)
     result = validate_username_for_register(data,username)
     actions = {
         'USERNAME_ALREADY_EXISTS': lambda: print ('Nome de usuário já cadastrado\n'),
         'INVALID_USERNAME': lambda: print ('Nome inválido, o nome deve conter somente letras e ser maior que 3 caracteres.\n'),
+
     }
     if result in actions:
         actions[result]()
         return
 
     password = input('Digite sua senha: ').strip()
-    result = register_user(data, username, password)
+    result = validate_password_for_register(password)
+    if result == 'INVALID_PASSWORD':
+        print ('Senha inválida, a senha deve ser maior que 4 caracteres.\n')
+        return
 
+    result = register_user(data, username, password)
     actions = {
         'SUCCESS': lambda: print ('Usuário cadastrado com sucesso.\n'),
-        'INVALID_PASSWORD': lambda: print ('Senha inválida, a senha deve ser maior que 4 caracteres.\n'),
         'TRY_AGAIN_LATER': lambda: print ('Tente novamente mais tarde.\n'),
 
     }

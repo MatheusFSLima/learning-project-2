@@ -17,11 +17,6 @@ def get_user_by_username(data,username):
 
 def register_user(data,username,password):
 
-    if password.strip() == '' or len(password) < 4:
-        add_log(data, username, 'REGISTER', 'FAIL')
-        save_data(data)
-        return 'INVALID_PASSWORD'
-
     password_hash = hash_password(password)
     user = {
         'username':username,
@@ -33,7 +28,7 @@ def register_user(data,username,password):
     data['users'].append(user)
     add_log(data,username,'REGISTER','SUCCESS')
     save_data(data)
-    return 'SUCCESS'
+    return 'SUCCESS', None
 
 
 def list_users(data):
