@@ -1,8 +1,5 @@
 from datetime import datetime
 
-from utils.json_handler import save_data
-
-
 def add_log(data,username,action,status):
     log = {
         'user': username,
