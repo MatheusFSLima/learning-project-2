@@ -30,6 +30,9 @@ def login(data,username,password):
     if not user:
         return USER_NOT_FOUND,None
 
+    if user['blocked']:
+        return BLOCKED, None
+
     if validate_password(user,password):
         reset_attempts(user)
         set_current_user(data,user)

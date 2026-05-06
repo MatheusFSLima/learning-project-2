@@ -149,7 +149,7 @@ def list_users_ui(data):
         print ('Lista de usuários vazia.\n')
         return
     if result == USER_LIST:
-        for i, user in enumerate(data['users'], start=1):
+        for i, user in enumerate(users, start=1):
             status = 'ATIVO' if not user['blocked'] else 'BLOQUEADO'
             print(f"\n{i} - Usuário: {user['username']} | Status: {status}")
 
