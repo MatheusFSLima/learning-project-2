@@ -75,18 +75,6 @@ def handle_failed_attempt(user):
 def reset_attempts(user):
     user['attempts'] = 0
 
-def validate_username_for_register(data,username):
-
-    user = get_user_by_username(data, username)
-
-    if not username.replace(' ', '').isalpha() or len(username) < 4:
-        return INVALID_USERNAME, None
-
-    if user:
-        return USERNAME_ALREADY_EXISTS, None
-
-    return OK, None
-
 
 
 

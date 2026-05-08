@@ -12,7 +12,10 @@ from constants import (SUCCESS,
                        USER_NOT_BLOCKED,
                        REGISTER,
                        UNBLOCK,
-                       REMOVE
+                       REMOVE,
+                       OK,
+                       INVALID_USERNAME,
+                       USERNAME_ALREADY_EXISTS,
                        )
 
 def get_user_by_username(data,username):
@@ -24,6 +27,11 @@ def get_user_by_username(data,username):
 
 
 def register_user(data,username,password):
+
+    validation,_ = validate_username_for_register(data,username)
+
+    if validation != OK:
+        return validation,None
 
     password_hash = hash_password(password)
     user = {
@@ -82,5 +90,17 @@ def remove_user(data,username):
 
     return SUCCESS, None
 
+
+def validate_username_for_register(data,username):
+
+    user = get_user_by_username(data, username)
+
+    if not username.replace(' ', '').isalpha() or len(username) < 4:
+        return INVALID_USERNAME, None
+
+    if user:
+        return USERNAME_ALREADY_EXISTS, None
+
+    return OK, None
 
 

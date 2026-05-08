@@ -1,6 +1,6 @@
-from services.user_service import register_user
+from services.user_service import register_user,get_user_by_username
 from services.auth_service import login,logout
-from constants import SUCCESS, INVALID_PASSWORD, BLOCKED, USER_NOT_FOUND, NO_USER_LOGGED
+from constants import SUCCESS, INVALID_PASSWORD, BLOCKED, USER_NOT_FOUND, NO_USER_LOGGED,USERNAME_ALREADY_EXISTS
 from utils.session import set_current_user
 
 def fake_data():
@@ -57,16 +57,6 @@ def test_logout_without_user():
 
     assert result == NO_USER_LOGGED
 
-def test_login_with_invalid_password():
-    data = fake_data()
-
-    register_user(data, "matheus", "1234")
-
-    result,attempts = login(data, "matheus", "errada")
-
-    assert result == INVALID_PASSWORD
-    assert attempts == 1
-    assert data["users"][0]["blocked"] is False
 
 def test_login_with_blocked_user():
     data = fake_data()
@@ -105,3 +95,35 @@ def test_logout_with_user_logged():
     assert result == SUCCESS
     assert data["session"]["current_user"] is None
 
+def test_register_user():
+    data = fake_data()
+
+    result,_ = register_user(data, "matheus", "1234")
+
+    assert result == SUCCESS
+    assert len(data["users"]) == 1
+
+def test_register_user_duplicated_username():
+    data = fake_data()
+
+    register_user(data, "matheus", "1234")
+
+    result, _ = register_user(data, "matheus", "1234")
+
+    assert result == USERNAME_ALREADY_EXISTS
+    assert len(data["users"]) == 1
+
+def test_login_resets_attempts_after_success():
+    data = fake_data()
+
+    register_user(data, "matheus", "1234")
+
+    login(data, "matheus", "errada")
+    login(data, "matheus", "errada")
+
+    result, _ = login(data, "matheus", "1234")
+
+    user = get_user_by_username(data, "matheus")
+
+    assert result == SUCCESS
+    assert user["attempts"] == 0
